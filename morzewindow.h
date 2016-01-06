@@ -19,14 +19,14 @@ class morzewindow : public QMainWindow
 
 public:
 
-	QTimer* m_timer;
+	//QTimer* m_timer;
 	int widthFirstScreen;
 	int heightFirstScreen;
 	int widthSecondScreen;
 	int heightSecondScreen;
 	int CountScreens;
 	Blink MorzeBlinkTimer;
-	BlinkThread MorzeBlinkThread;
+	BlinkThread* MorzeBlinkThread;
 
 	QDesktopWidget* windowMorze;
 	QRect screenres;

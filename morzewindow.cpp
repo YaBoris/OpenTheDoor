@@ -13,6 +13,8 @@ morzewindow::morzewindow(QWidget *parent) :
     ui->setupUi(this);
 	QDesktopWidget* windowMorze = QApplication::desktop();
 
+	MorzeBlinkThread = new BlinkThread;
+
 	widthFirstScreen = 0;
 	heightFirstScreen = 0;
 	widthSecondScreen = 0;
@@ -31,12 +33,12 @@ morzewindow::morzewindow(QWidget *parent) :
 		windowMorze->setGeometry(screenres.x(), screenres.y(), widthSecondScreen, heightSecondScreen);
 	}
 
-	MorzeBlinkTimer.moveToThread(&MorzeBlinkThread);
+	MorzeBlinkTimer.moveToThread(MorzeBlinkThread);
 	QObject::connect(&MorzeBlinkTimer, SIGNAL(latency(bool)), SLOT(Blink(bool)));
-	MorzeBlinkThread.start();
+	MorzeBlinkThread->start();
 	qDebug() << "test";
-	int * x = etalon2.GetReadyCodeMorzeForBlink();
-	MorzeBlinkTimer.startBlink(x);
+	MorzeBlinkTimer.startBlink(etalon2.GetReadyCodeMorzeForBlink());
+
 
 	//windowMorze->move(QPoint(screenres.x(), screenres.y()));
 	//windowMorze->move(QPoint(0, 0));
