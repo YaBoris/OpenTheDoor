@@ -3,6 +3,7 @@
 
 #include "mousefilter.h"
 #include "congra.h"
+#include "opendoortimer.h"
 #include <QMainWindow>
 #include <QtDebug>
 #include <QTime>
@@ -35,10 +36,17 @@ public:
 	QString clearString;
 	QString enterString;
 	QString extraQuitString;
+	QString pathToVideoBat;
 	QPalette le_gray_palette;
 	QPalette le_black_palette;
+	QProcess* procVideo;
 
 	Congra timerMessage;
+	Congra timerOpenDoor;
+
+	opendoortimer timerChangeTxtOpenDoor;
+	QThread* timerChangeTxtOpenDoorThread;
+
 	MyThread messageThread;
 	int widthFirstScreen;
 	int heightFirstScreen;
@@ -60,9 +68,9 @@ private slots:
 
     void on_pushButton_3_clicked();
 
-	void startVideo();
+	//void startVideo();
 
-
+	//void changeStateTxtFile();
 
 private:
 	Ui::MainWindow *ui;

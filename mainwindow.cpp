@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	errorString = "<FONT COLOR = RED><CENTER>НЕПРАВИЛЬНО!</CENTER><FONT>";
 	enterString = "Введите код";
 	extraQuitString = "11111";
+	pathToVideoBat = "explorer d:\\__DOCS_PROJECTS\\Qt\\OpenTheDoor\\MP709\\startvideo.bat";
+
 	widthFirstScreen=0;
 	heightFirstScreen=0;
 	int CountScreens=0;
@@ -21,8 +23,26 @@ MainWindow::MainWindow(QWidget *parent) :
 	allLabelAnswered=0;
 	timerMessage.moveToThread(&messageThread);
 
+	//процесс для запуска видеоролика
+	procVideo=new QProcess(this);
+
+	timerChangeTxtOpenDoorThread = new QThread;
+	timerChangeTxtOpenDoor.moveToThread(timerChangeTxtOpenDoorThread);
+
+	//коннект для скрытия окна "ПРАВИЛЬНО/НЕПРАВИЛЬНО"
 	QObject::connect(&timerMessage, SIGNAL(hiding()), SLOT(HideWindow()));
+
+	//коннект для закрытия процесса задержки при отображении окна "ПРАВИЛЬНО/НЕПРАВИЛЬНО"
 	QObject::connect(&timerMessage, SIGNAL(finished()), &messageThread, SLOT(quit()));
+
+
+	//QObject::connect(&timerOpenDoor, SIGNAL(hiding()), SLOT(changeStateTxtFile()));
+
+	//коннект для запуска функции задержки при просмотре финального видеоролика
+	//и последующего изменения состояния текстового файла состояния
+	QObject::connect(timerChangeTxtOpenDoorThread, SIGNAL(started()), &timerChangeTxtOpenDoor, SLOT(changeTxt()));
+	//коннект для завершения процесса запущенного строкой ранее
+	QObject::connect(timerChangeTxtOpenDoorThread, SIGNAL(quitThread()), timerChangeTxtOpenDoorThread, SLOT(quit()));
 
 	lbl = new QLabel();
 	QFont f("Helvetica", 80, QFont::Bold);
@@ -112,7 +132,9 @@ void MainWindow::on_pushButton_1_clicked()
 			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
 			timerMessage.startShow(1500);
 
-			emit startVideo();
+			//если отгаданы все коды, то открываеми перезаписываем файл состояния реле на "ВКЛ"
+			timerChangeTxtOpenDoorThread->start();
+			procVideo->start(pathToVideoBat);
 
 			allLabelAnswered = 0;
 			ui->lineEdit_1->setPalette(le_gray_palette);
@@ -168,7 +190,9 @@ void MainWindow::on_pushButton_2_clicked()
 			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
 			timerMessage.startShow(1500);
 
-			emit startVideo();
+			//если отгаданы все коды, то открываеми перезаписываем файл состояния реле на "ВКЛ"
+			timerChangeTxtOpenDoorThread->start();
+			procVideo->start(pathToVideoBat);
 
 			allLabelAnswered = 0;
 			ui->lineEdit_2->setPalette(le_gray_palette);
@@ -224,7 +248,10 @@ void MainWindow::on_pushButton_3_clicked()
 			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
 			timerMessage.startShow(1500);
 
-			emit startVideo();
+
+			//если отгаданы все коды, то открываеми перезаписываем файл состояния реле на "ВКЛ"
+			timerChangeTxtOpenDoorThread->start();
+			procVideo->start(pathToVideoBat);
 
 			allLabelAnswered = 0;
 			ui->lineEdit_3->setPalette(le_gray_palette);
@@ -341,8 +368,4 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *ev)
 	return MainWindow::eventFilter(obj, ev);
 }
 
-void MainWindow::startVideo()
-{
-	QProcess* proc=new QProcess(this);
-	proc->start("explorer d:\\__DOCS_PROJECTS\\Qt\\OpenTheDoor\\MP709\\startvideo.bat");
-}
+

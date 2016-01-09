@@ -24,6 +24,7 @@ HEADERS  += mainwindow.h \
     morzecode.h \
     congra.h \
     mousefilter.h \
-    blink.h
+    blink.h \
+    opendoortimer.h
 FORMS    += mainwindow.ui \
     morzewindow.ui

@@ -10,7 +10,7 @@ class Congra : public QObject {
 Q_OBJECT
 
 signals:
-	void finished();
+	//void finished();
 	void hiding();
 
 public:
