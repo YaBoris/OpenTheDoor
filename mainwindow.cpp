@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	heightFirstScreen=0;
 	int CountScreens=0;
 	NumberLine=1;
-
+	allLabelAnswered=0;
 	timerMessage.moveToThread(&messageThread);
 
 	QObject::connect(&timerMessage, SIGNAL(hiding()), SLOT(HideWindow()));
@@ -39,6 +39,12 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->lineEdit_1->size().setWidth(x);
 	ui->lineEdit_1->size().setHeight(y);
 	ui->lineEdit_1->setStyleSheet("QLineEdit {  border-radius: 10px; } ");
+
+	QPalette le1_palette;
+	le1_palette.setColor(QPalette::WindowText, Qt::red);
+	ui->lineEdit_1->setPalette(le1_palette);
+
+
 	//ui->lineEdit_1->installEventFilter(new MouseFilter(ui->lineEdit_1));
 	ui->pushButton_1->move(xButton, y);
 	ui->pushButton_1->setStyleSheet("QPushButton {  border-radius: 10px; } ");
@@ -90,14 +96,32 @@ void MainWindow::on_pushButton_1_clicked()
 	QString String1 = ui->lineEdit_1->text();
 	if(ControlCode(String1, NumberLine))
 	{
-		lbl->setText(congratulationsString);
-		lbl->show();
-		lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+		allLabelAnswered+=1;
+		if(allLabelAnswered == 7)
+		{
+			lbl->setText(congratulationsString);
+			lbl->show();
+			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+			timerMessage.startShow(1500);
 
-		timerMessage.startShow(1500);
+//			emit startVideo();
 
-		ui->lineEdit_1->hide();
-		ui->pushButton_1->hide();
+			allLabelAnswered = 0;
+			ui->lineEdit_2->show();
+			ui->pushButton_2->show();
+			ui->lineEdit_3->show();
+			ui->pushButton_3->show();
+		}
+		else
+		{
+			ui->lineEdit_1->hide();
+			ui->pushButton_1->hide();
+
+			lbl->setText(congratulationsString);
+			lbl->show();
+			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+			timerMessage.startShow(1500);
+		}
 	}
 	else
 	{

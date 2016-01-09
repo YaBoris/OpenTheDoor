@@ -2,7 +2,6 @@
 #define MORZEWINDOW_H
 
 #include "congra.h"
-#include "etalon.h"
 #include "blink.h"
 #include <QMainWindow>
 #include <QDesktopWidget>
@@ -19,7 +18,6 @@ class morzewindow : public QMainWindow
 
 public:
 
-	//QTimer* m_timer;
 	int widthFirstScreen;
 	int heightFirstScreen;
 	int widthSecondScreen;
@@ -36,7 +34,6 @@ public:
 	void MoveToConer();
 	int GetSizeX();
 	int GetSizeY();
-	//void blinkByMorzeString(int* morString);
 	void FullMorzeString();
 
 

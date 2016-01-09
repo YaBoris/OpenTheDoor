@@ -4,15 +4,17 @@
 #pragma once
 
 #include <QtWidgets>
+#include "etalon.h"
 
 class Blink : public QObject {
 Q_OBJECT
 
 
 signals:
-	//void finished();
 	void latency(bool BlackWhite);
+
 private:
+	Etalon ReadyMorze;
 	static int const iDot = 500;
 	static int const iDash = 2000;
 	static int const iPauseSymbol = 500;
@@ -23,8 +25,10 @@ private:
 public:
 	Blink(QObject* pobj = 0) : QObject(pobj){}
 
-	void startBlink(int* morze)
+public slots:
+	void startBlink()
 	{
+		int* morze = ReadyMorze.GetReadyCodeMorzeForBlink();
 		for(int i = 0; i < 50; i++)
 		{
 			qDebug() << "index i: " << i;

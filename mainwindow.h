@@ -27,6 +27,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+	int allLabelAnswered;
 	QLabel* lbl;
 	QString congratulationsString;
 	QString errorString;

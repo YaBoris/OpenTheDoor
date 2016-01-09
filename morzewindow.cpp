@@ -4,8 +4,6 @@
 #include <QPalette>
 
 
-Etalon etalon2;
-
 morzewindow::morzewindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::morzewindow)
@@ -34,11 +32,9 @@ morzewindow::morzewindow(QWidget *parent) :
 	}
 
 	MorzeBlinkTimer.moveToThread(MorzeBlinkThread);
-	QObject::connect(&MorzeBlinkTimer, SIGNAL(latency(bool)), SLOT(Blink(bool)));
+	QObject::connect(MorzeBlinkThread, SIGNAL(started()), &MorzeBlinkTimer, SLOT(startBlink()));
+	QObject::connect(&MorzeBlinkTimer, SIGNAL(latency(bool)), this, SLOT(Blink(bool)));
 	MorzeBlinkThread->start();
-	qDebug() << "test";
-	MorzeBlinkTimer.startBlink(etalon2.GetReadyCodeMorzeForBlink());
-
 
 	//windowMorze->move(QPoint(screenres.x(), screenres.y()));
 	//windowMorze->move(QPoint(0, 0));
