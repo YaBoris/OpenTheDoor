@@ -17,6 +17,7 @@ Etalon::Etalon()
     string2Etalon = "";
     string3Etalon = "";
     string4Etalon = "";
+	string5Etalon = "11111";
 
 	//QFile codesFile("d:\\Downloads\\Qt\\Projects\\OpenTheDoor\\data.txt");
 	QFile codesFile("d:\\__DOCS_PROJECTS\\Qt\\OpenTheDoor\\data.txt");
@@ -125,7 +126,9 @@ QString Etalon::getStrings(int InstString)
         break;
     case 4:
         return string4Etalon;
-        break;
+		break;
+	case 5:
+		return string5Etalon;
     }
     QString err = "Error";
     return err;

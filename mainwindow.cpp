@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	congratulationsString = "<FONT COLOR = GREEN><CENTER>ПРАВИЛЬНО!</CENTER><FONT>";
 	errorString = "<FONT COLOR = RED><CENTER>НЕПРАВИЛЬНО!</CENTER><FONT>";
 	enterString = "Введите код";
+	extraQuitString = "11111";
 	widthFirstScreen=0;
 	heightFirstScreen=0;
 	int CountScreens=0;
@@ -97,6 +98,10 @@ void MainWindow::on_pushButton_1_clicked()
 {
 	NumberLine = 1;
 	QString String1 = ui->lineEdit_1->text();
+	if (ControlCode(String1, 5))
+	{
+		emit exiting();
+	}
 	if(ControlCode(String1, NumberLine))
 	{
 		allLabelAnswered+=1;
@@ -107,13 +112,21 @@ void MainWindow::on_pushButton_1_clicked()
 			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
 			timerMessage.startShow(1500);
 
-//			emit startVideo();
+			emit startVideo();
 
 			allLabelAnswered = 0;
+			ui->lineEdit_1->setPalette(le_gray_palette);
+			ui->lineEdit_1->setText(enterString);
+
 			ui->lineEdit_2->show();
 			ui->pushButton_2->show();
+			ui->lineEdit_2->setPalette(le_gray_palette);
+			ui->lineEdit_2->setText(enterString);
+
 			ui->lineEdit_3->show();
 			ui->pushButton_3->show();
+			ui->lineEdit_3->setPalette(le_gray_palette);
+			ui->lineEdit_3->setText(enterString);
 		}
 		else
 		{
@@ -141,16 +154,46 @@ void MainWindow::on_pushButton_2_clicked()
 {
 	NumberLine = 2;
 	QString String2 = ui->lineEdit_2->text();
+	if (ControlCode(String2, 5))
+	{
+		emit exiting();
+	}
 	if(ControlCode(String2, NumberLine))
 	{
-		lbl->setText(congratulationsString);
-		lbl->show();
-		lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+		allLabelAnswered+=2;
+		if(allLabelAnswered == 7)
+		{
+			lbl->setText(congratulationsString);
+			lbl->show();
+			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+			timerMessage.startShow(1500);
 
-		timerMessage.startShow(1500);
+			emit startVideo();
 
-		ui->lineEdit_2->hide();
-		ui->pushButton_2->hide();
+			allLabelAnswered = 0;
+			ui->lineEdit_2->setPalette(le_gray_palette);
+			ui->lineEdit_2->setText(enterString);
+
+			ui->lineEdit_1->show();
+			ui->pushButton_1->show();
+			ui->lineEdit_1->setPalette(le_gray_palette);
+			ui->lineEdit_1->setText(enterString);
+
+			ui->lineEdit_3->show();
+			ui->pushButton_3->show();
+			ui->lineEdit_3->setPalette(le_gray_palette);
+			ui->lineEdit_3->setText(enterString);
+		}
+		else
+		{
+			ui->lineEdit_2->hide();
+			ui->pushButton_2->hide();
+
+			lbl->setText(congratulationsString);
+			lbl->show();
+			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+			timerMessage.startShow(1500);
+		}
 	}
 	else
 	{
@@ -158,28 +201,55 @@ void MainWindow::on_pushButton_2_clicked()
 		lbl->setText(errorString);
 		lbl->show();
 		lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
-
-		//messageThread.start();
 		timerMessage.startShow(1500);
-
 		ui->lineEdit_2->setText("");
 	}
 }
 
 void MainWindow::on_pushButton_3_clicked()
 {
-	NumberLine = 3;
+	NumberLine = 4;
 	QString String3 = ui->lineEdit_3->text();
+	if (ControlCode(String3, 5))
+	{
+		emit exiting();
+	}
 	if(ControlCode(String3, NumberLine))
 	{
-		lbl->setText(congratulationsString);
-		lbl->show();
-		lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+		allLabelAnswered+=4;
+		if(allLabelAnswered == 7)
+		{
+			lbl->setText(congratulationsString);
+			lbl->show();
+			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+			timerMessage.startShow(1500);
 
-		timerMessage.startShow(1500);
+			emit startVideo();
 
-		ui->lineEdit_3->hide();
-		ui->pushButton_3->hide();
+			allLabelAnswered = 0;
+			ui->lineEdit_3->setPalette(le_gray_palette);
+			ui->lineEdit_3->setText(enterString);
+
+			ui->lineEdit_2->show();
+			ui->pushButton_2->show();
+			ui->lineEdit_2->setPalette(le_gray_palette);
+			ui->lineEdit_2->setText(enterString);
+
+			ui->lineEdit_1->show();
+			ui->pushButton_1->show();
+			ui->lineEdit_1->setPalette(le_gray_palette);
+			ui->lineEdit_1->setText(enterString);
+		}
+		else
+		{
+			ui->lineEdit_3->hide();
+			ui->pushButton_3->hide();
+
+			lbl->setText(congratulationsString);
+			lbl->show();
+			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+			timerMessage.startShow(1500);
+		}
 	}
 	else
 	{
@@ -187,10 +257,7 @@ void MainWindow::on_pushButton_3_clicked()
 		lbl->setText(errorString);
 		lbl->show();
 		lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
-
-		//messageThread.start();
 		timerMessage.startShow(1500);
-
 		ui->lineEdit_3->setText("");
 	}
 }
@@ -272,4 +339,10 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *ev)
 		return false;
 	}
 	return MainWindow::eventFilter(obj, ev);
+}
+
+void MainWindow::startVideo()
+{
+	QProcess* proc=new QProcess(this);
+	proc->start("explorer d:\\__DOCS_PROJECTS\\Qt\\OpenTheDoor\\MP709\\startvideo.bat");
 }

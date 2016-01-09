@@ -23,6 +23,7 @@ private:
 	QString string2Etalon;
 	QString string3Etalon;
 	QString string4Etalon;
+	QString string5Etalon;
 };
 
 #endif // ETALON_H

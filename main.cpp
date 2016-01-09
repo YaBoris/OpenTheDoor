@@ -9,12 +9,15 @@
 #include <thread>
 #include <chrono>
 
+
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
 	morzewindow morzeWind;
 
+	QObject::connect(&w, SIGNAL(exiting()), &a, SLOT(quit()));
 	morzeWind.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 	morzeWind.resize(morzeWind.GetSizeX(), morzeWind.GetSizeY());
 	morzeWind.MoveToConer();

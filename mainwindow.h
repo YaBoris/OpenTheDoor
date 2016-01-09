@@ -34,6 +34,7 @@ public:
 	QString StandartString;
 	QString clearString;
 	QString enterString;
+	QString extraQuitString;
 	QPalette le_gray_palette;
 	QPalette le_black_palette;
 
@@ -49,12 +50,19 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+signals:
+	void exiting();
+
 private slots:
     void on_pushButton_1_clicked();
 
     void on_pushButton_2_clicked();
 
     void on_pushButton_3_clicked();
+
+	void startVideo();
+
+
 
 private:
 	Ui::MainWindow *ui;
