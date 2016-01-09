@@ -9,10 +9,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {    
 	ui->setupUi(this);
-	StandartString = "Введите код";
 	QDesktopWidget* qdw = QApplication::desktop();
 	congratulationsString = "<FONT COLOR = GREEN><CENTER>ПРАВИЛЬНО!</CENTER><FONT>";
 	errorString = "<FONT COLOR = RED><CENTER>НЕПРАВИЛЬНО!</CENTER><FONT>";
+	enterString = "Введите код";
 	widthFirstScreen=0;
 	heightFirstScreen=0;
 	int CountScreens=0;
@@ -40,12 +40,10 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->lineEdit_1->size().setHeight(y);
 	ui->lineEdit_1->setStyleSheet("QLineEdit {  border-radius: 10px; } ");
 
-	QPalette le1_palette;
-	le1_palette.setColor(QPalette::WindowText, Qt::red);
-	ui->lineEdit_1->setPalette(le1_palette);
+	le_gray_palette.setColor(QPalette::Text, Qt::gray);
+	le_black_palette.setColor(QPalette::Text, Qt::black);
+	ui->lineEdit_1->setPalette(le_gray_palette);
 
-
-	//ui->lineEdit_1->installEventFilter(new MouseFilter(ui->lineEdit_1));
 	ui->pushButton_1->move(xButton, y);
 	ui->pushButton_1->setStyleSheet("QPushButton {  border-radius: 10px; } ");
 	ui->lineEdit_1->move(x, y);
@@ -53,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	y+=70;
 	ui->lineEdit_2->size().setHeight(y);
 	ui->lineEdit_2->setStyleSheet("QLineEdit {  border-radius: 10px; } ");
-	//ui->lineEdit_2->installEventFilter(new MouseFilter (ui->lineEdit_2));
+	ui->lineEdit_2->setPalette(le_gray_palette);
 	ui->pushButton_2->move(xButton, y);
 	ui->pushButton_2->setStyleSheet("QPushButton {  border-radius: 10px; } ");
 	ui->lineEdit_2->move(x, y);
@@ -61,7 +59,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	y+=70;
 	ui->lineEdit_3->size().setHeight(y);
 	ui->lineEdit_3->setStyleSheet("QLineEdit {  border-radius: 10px; } ");
-	//ui->lineEdit_3->installEventFilter(new MouseFilter (ui->lineEdit_3));
+	ui->lineEdit_3->setPalette(le_gray_palette);
+
 	ui->pushButton_3->move(xButton, y);
 	ui->pushButton_3->setStyleSheet("QPushButton {  border-radius: 10px; } ");
 	ui->lineEdit_3->move(x, y);
@@ -69,9 +68,13 @@ MainWindow::MainWindow(QWidget *parent) :
 	x = (widthFirstScreen-600)/2;
 	y=60;
 
-	ui->lineEdit_1->setText(StandartString);
-	ui->lineEdit_2->setText(StandartString);
-	ui->lineEdit_3->setText(StandartString);
+	ui->lineEdit_1->setText(enterString);
+	ui->lineEdit_2->setText(enterString);
+	ui->lineEdit_3->setText(enterString);
+
+	ui->lineEdit_1->installEventFilter(this);
+	ui->lineEdit_2->installEventFilter(this);
+	ui->lineEdit_3->installEventFilter(this);
 
 	messageThread.start();
 }
@@ -129,10 +132,7 @@ void MainWindow::on_pushButton_1_clicked()
 		lbl->setText(errorString);
 		lbl->show();
 		lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
-
-		//messageThread.start();
 		timerMessage.startShow(1500);
-
 		ui->lineEdit_1->setText("");
 	}
 }
@@ -195,4 +195,81 @@ void MainWindow::on_pushButton_3_clicked()
 	}
 }
 
+bool MainWindow::eventFilter(QObject *obj, QEvent *ev)
+{
+	if (obj == ui->lineEdit_1 && ev->type() == QEvent::FocusIn)
+	{
+		if (ui->lineEdit_1->text() == enterString)
+		{
+			ui->lineEdit_1->setText("");
+			ui->lineEdit_1->setPalette(le_black_palette);
+			if(ui->lineEdit_2->text() == clearString)
+			{
+				ui->lineEdit_2->setPalette(le_gray_palette);
+				ui->lineEdit_2->setText(enterString);
+			}
+			if(ui->lineEdit_3->text() == clearString)
+			{
+				ui->lineEdit_3->setPalette(le_gray_palette);
+				ui->lineEdit_3->setText(enterString);
+			}
+			return false;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else if (obj == ui->lineEdit_2 && ev->type() == QEvent::FocusIn)
+	{
+		if (ui->lineEdit_2->text() == enterString)
+		{
+			ui->lineEdit_2->setText("");
+			ui->lineEdit_2->setPalette(le_black_palette);
+			if(ui->lineEdit_1->text() == clearString)
+			{
+				ui->lineEdit_1->setPalette(le_gray_palette);
+				ui->lineEdit_1->setText(enterString);
+			}
+			if(ui->lineEdit_3->text() == clearString)
+			{
+				ui->lineEdit_3->setPalette(le_gray_palette);
+				ui->lineEdit_3->setText(enterString);
+			}
+			return false;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else if(obj == ui->lineEdit_3 && ev->type() == QEvent::FocusIn)
+	{
 
+		if (ui->lineEdit_3->text() == enterString)
+		{
+			ui->lineEdit_3->setText("");
+			ui->lineEdit_3->setPalette(le_black_palette);
+			if(ui->lineEdit_1->text() == clearString)
+			{
+				ui->lineEdit_1->setPalette(le_gray_palette);
+				ui->lineEdit_1->setText(enterString);
+			}
+			if(ui->lineEdit_2->text() == clearString)
+			{
+				ui->lineEdit_2->setPalette(le_gray_palette);
+				ui->lineEdit_2->setText(enterString);
+			}
+			return false;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+	return MainWindow::eventFilter(obj, ev);
+}

@@ -33,6 +33,10 @@ public:
 	QString errorString;
 	QString StandartString;
 	QString clearString;
+	QString enterString;
+	QPalette le_gray_palette;
+	QPalette le_black_palette;
+
 	Congra timerMessage;
 	MyThread messageThread;
 	int widthFirstScreen;
@@ -41,6 +45,7 @@ public:
 	int NumberLine;
 	void timeEvent(QTimerEvent*);
 	bool ControlCode(QString code, int NumberLineEdit);
+	bool eventFilter(QObject *obj, QEvent *ev);
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
