@@ -27,7 +27,8 @@ int main(int argc, char *argv[])
 	morzeWind.setPalette(QPalette(Qt::black));
 	morzeWind.show();
 
-	w.showFullScreen();
+	//w.showFullScreen();
+	w.show();
 
     return a.exec();
 }

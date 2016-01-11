@@ -31,18 +31,18 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	//коннект для скрытия окна "ПРАВИЛЬНО/НЕПРАВИЛЬНО"
 	QObject::connect(&timerMessage, SIGNAL(hiding()), SLOT(HideWindow()));
+	//коннект для запуска функции задержки при просмотре финального видеоролика
+	//и последующего изменения состояния текстового файла открытия замка
+	QObject::connect(timerChangeTxtOpenDoorThread, SIGNAL(started()), &timerChangeTxtOpenDoor, SLOT(changeTxt()));
 
 	//коннект для закрытия процесса задержки при отображении окна "ПРАВИЛЬНО/НЕПРАВИЛЬНО"
-	QObject::connect(&timerMessage, SIGNAL(finished()), &messageThread, SLOT(quit()));
-
+	//отключен, потому что сигнал finished отсутствует
+	//QObject::connect(&timerMessage, SIGNAL(finished()), &messageThread, SLOT(quit()));
+	//коннект для завершения процесса запущенного строкой ранее
+	//отключен, потому что сигнал quitThread отсутствует
+	//QObject::connect(timerChangeTxtOpenDoorThread, SIGNAL(quitThread()), timerChangeTxtOpenDoorThread, SLOT(quit()));
 
 	//QObject::connect(&timerOpenDoor, SIGNAL(hiding()), SLOT(changeStateTxtFile()));
-
-	//коннект для запуска функции задержки при просмотре финального видеоролика
-	//и последующего изменения состояния текстового файла состояния
-	QObject::connect(timerChangeTxtOpenDoorThread, SIGNAL(started()), &timerChangeTxtOpenDoor, SLOT(changeTxt()));
-	//коннект для завершения процесса запущенного строкой ранее
-	QObject::connect(timerChangeTxtOpenDoorThread, SIGNAL(quitThread()), timerChangeTxtOpenDoorThread, SLOT(quit()));
 
 	lbl = new QLabel();
 	QFont f("Helvetica", 80, QFont::Bold);
@@ -52,21 +52,35 @@ MainWindow::MainWindow(QWidget *parent) :
 	CountScreens=qdw->numScreens();
 	widthFirstScreen=qdw->screenGeometry().width();
 	heightFirstScreen=qdw->screenGeometry().height();
+	this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
 	int y = (heightFirstScreen-190)/2;
 	int x = (widthFirstScreen-580)/2;
 	int xButton=x+460;
 
+	QPalette palMainWindow;
+	QPixmap pix("d://__DOCS_PROJECTS//Qt//OpenTheDoor//555.png");
+	palMainWindow.setBrush(this->backgroundRole(), QBrush(pix));
+	this->resize(widthFirstScreen, heightFirstScreen);
+	this->setPalette(palMainWindow);
+	this->setAutoFillBackground(true);
+
+//	QFile buttonStyleFile("d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//simple.qss");
+//	buttonStyleFile.open(QFile::ReadOnly);
+//	QString strCSS = QLatin1String(buttonStyleFile.readAll());
+//	this->setStyleSheet(strCSS);
+
 	ui->lineEdit_1->size().setWidth(x);
 	ui->lineEdit_1->size().setHeight(y);
 	ui->lineEdit_1->setStyleSheet("QLineEdit {  border-radius: 10px; } ");
+	ui->pushButton_1->setStyleSheet("QPushButton { border-image: url(d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//simple_button.bmp) 10px; border-width: 10px; border-radius: 10px;");
 
 	le_gray_palette.setColor(QPalette::Text, Qt::gray);
 	le_black_palette.setColor(QPalette::Text, Qt::black);
 	ui->lineEdit_1->setPalette(le_gray_palette);
 
 	ui->pushButton_1->move(xButton, y);
-	ui->pushButton_1->setStyleSheet("QPushButton {  border-radius: 10px; } ");
+	//ui->pushButton_1->setStyleSheet("QPushButton {  border-radius: 10px; } ");
 	ui->lineEdit_1->move(x, y);
 
 	y+=70;
@@ -74,7 +88,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->lineEdit_2->setStyleSheet("QLineEdit {  border-radius: 10px; } ");
 	ui->lineEdit_2->setPalette(le_gray_palette);
 	ui->pushButton_2->move(xButton, y);
-	ui->pushButton_2->setStyleSheet("QPushButton {  border-radius: 10px; } ");
+	//ui->pushButton_2->setStyleSheet("QPushButton {  border-radius: 10px; } ");
 	ui->lineEdit_2->move(x, y);
 
 	y+=70;
@@ -83,7 +97,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->lineEdit_3->setPalette(le_gray_palette);
 
 	ui->pushButton_3->move(xButton, y);
-	ui->pushButton_3->setStyleSheet("QPushButton {  border-radius: 10px; } ");
+	//ui->pushButton_3->setStyleSheet("QPushButton {  border-radius: 10px; } ");
 	ui->lineEdit_3->move(x, y);
 
 	x = (widthFirstScreen-600)/2;

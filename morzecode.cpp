@@ -301,7 +301,7 @@ morzeCode::morzeCode()
 	morzeCodeLine[5]=0;
 	morzeCodeLine[6]=2;
 	morzeCodeArr.push_back(morzeCodeLine);
-	qDebug() << "size  alphabet" << morzeCodeArr.size();
+	//qDebug() << "size  alphabet" << morzeCodeArr.size();
 
 	//ю
 	morzeCodeLine[0]=1102;//1102,0,0,1,1,2,2

@@ -18,6 +18,7 @@
 #include <QLabel>
 #include <QMessageBox>
 #include <QDialog>
+#include <QImage>
 
 namespace Ui {
 class MainWindow;
@@ -40,6 +41,7 @@ public:
 	QPalette le_gray_palette;
 	QPalette le_black_palette;
 	QProcess* procVideo;
+	QImage* imageMainWindow;
 
 	Congra timerMessage;
 	Congra timerOpenDoor;

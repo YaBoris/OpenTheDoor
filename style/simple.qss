@@ -1,0 +1,15 @@
+/* Simple Style */
+QPushButton {
+    border-image: url(:/style/simple_button.bmp) 10px;
+    border-width: 10px;
+}
+
+QPushButton:hover {
+    border-image: url(:/style/hover_button.bmp) 10px;
+    border-width: 10px;
+}
+
+QPushButton:pressed {
+    border-image: url(:/style/pressed_button.bmp) 10px;
+    border-width: 10px;
+}

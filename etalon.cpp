@@ -90,7 +90,7 @@ Etalon::Etalon()
 				for(int j = 1; j < 7; j++)
 				{
 					ReadyCodeMorzeForBlink[indexArrayMorzeCode]=TableCode.GetMorzeCharacter(i, j);
-					qDebug() << "ReadyCodeMorzeForBlink[" << indexArrayMorzeCode << "]" << ReadyCodeMorzeForBlink[indexArrayMorzeCode];
+					//qDebug() << "ReadyCodeMorzeForBlink[" << indexArrayMorzeCode << "]" << ReadyCodeMorzeForBlink[indexArrayMorzeCode];
 
 					indexArrayMorzeCode++;
 
@@ -101,11 +101,11 @@ Etalon::Etalon()
 			}
 		}
 		ReadyCodeMorzeForBlink[indexArrayMorzeCode] = 3;
-		qDebug() << "\n\n";
+		//qDebug() << "\n\n";
 		for(int k = 0; k <= indexArrayMorzeCode; k++)
 		{
 
-			qDebug() << "ReadyCodeMorzeForBlink[ " << k << "]" << ReadyCodeMorzeForBlink[k];
+			//qDebug() << "ReadyCodeMorzeForBlink[ " << k << "]" << ReadyCodeMorzeForBlink[k];
 		}
 	}
 

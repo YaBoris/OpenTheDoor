@@ -21,7 +21,7 @@ public:
 	}
 	void startShow(int seconds)
 	{
-		qDebug() << "show timer";
+		//qDebug() << "show timer";
 		m_timer.start(seconds);
 	}
 	public slots:
