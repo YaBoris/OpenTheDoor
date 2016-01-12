@@ -55,8 +55,14 @@ MainWindow::MainWindow(QWidget *parent) :
 	this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
 	int y = (heightFirstScreen-190)/2;
-	int x = (widthFirstScreen-580)/2;
-	int xButton=x+460;
+	//координаты без учета иконок
+	//int x = (widthFirstScreen-580)/2;
+
+	//с учетом иконок
+	int x = (widthFirstScreen-580)/2;;
+	int xIcon = (widthFirstScreen-730)/2;
+	int xField=x+80;
+	int xButton=x+545;
 
 	QPalette palMainWindow;
 	QPixmap pix("d://__DOCS_PROJECTS//Qt//OpenTheDoor//555.png");
@@ -70,26 +76,26 @@ MainWindow::MainWindow(QWidget *parent) :
 //	QString strCSS = QLatin1String(buttonStyleFile.readAll());
 //	this->setStyleSheet(strCSS);
 
+	//задаем размещение иконок, полей ввода и кнопок
 	ui->lineEdit_1->size().setWidth(x);
 	ui->lineEdit_1->size().setHeight(y);
-	ui->lineEdit_1->setStyleSheet("QLineEdit {  border-radius: 10px; } ");
-	ui->pushButton_1->setStyleSheet("QPushButton { border-image: url(d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//simple_button.bmp) 10px; border-width: 10px; border-radius: 10px;");
+	//ui->lineEdit_1->setStyleSheet("QLineEdit {  border-radius: 10px; } ");
 
 	le_gray_palette.setColor(QPalette::Text, Qt::gray);
 	le_black_palette.setColor(QPalette::Text, Qt::black);
 	ui->lineEdit_1->setPalette(le_gray_palette);
 
+	ui->label_1->move(xIcon, y);
 	ui->pushButton_1->move(xButton, y);
-	//ui->pushButton_1->setStyleSheet("QPushButton {  border-radius: 10px; } ");
-	ui->lineEdit_1->move(x, y);
+	ui->lineEdit_1->move(xField, y);
 
 	y+=70;
 	ui->lineEdit_2->size().setHeight(y);
 	ui->lineEdit_2->setStyleSheet("QLineEdit {  border-radius: 10px; } ");
 	ui->lineEdit_2->setPalette(le_gray_palette);
 	ui->pushButton_2->move(xButton, y);
-	//ui->pushButton_2->setStyleSheet("QPushButton {  border-radius: 10px; } ");
-	ui->lineEdit_2->move(x, y);
+	ui->lineEdit_2->move(xField, y);
+	ui->label_2->move(xIcon, y);
 
 	y+=70;
 	ui->lineEdit_3->size().setHeight(y);
@@ -97,8 +103,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->lineEdit_3->setPalette(le_gray_palette);
 
 	ui->pushButton_3->move(xButton, y);
-	//ui->pushButton_3->setStyleSheet("QPushButton {  border-radius: 10px; } ");
-	ui->lineEdit_3->move(x, y);
+	ui->lineEdit_3->move(xField, y);
+	ui->label_3->move(xIcon, y);
 
 	x = (widthFirstScreen-600)/2;
 	y=60;

@@ -34,10 +34,17 @@
     </property>
     <property name="font">
      <font>
+      <family>Bookman Old Style</family>
       <pointsize>14</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//simple.bmp) 3px; border-radius: 11px; color: white;</string>
     </property>
     <property name="text">
      <string>Принять</string>
@@ -54,10 +61,17 @@
     </property>
     <property name="font">
      <font>
+      <family>Bookman Old Style</family>
       <pointsize>14</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//simple.bmp) 3px; border-radius: 11px;  color: white;</string>
     </property>
     <property name="text">
      <string>Принять</string>
@@ -74,10 +88,17 @@
     </property>
     <property name="font">
      <font>
+      <family>Bookman Old Style</family>
       <pointsize>14</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//simple.bmp) 3px; border-radius: 11px;  color: white;</string>
     </property>
     <property name="text">
      <string>Принять</string>
@@ -114,6 +135,9 @@
     <property name="contextMenuPolicy">
      <enum>Qt::NoContextMenu</enum>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 10px; border: 5px; </string>
+    </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_2">
     <property name="geometry">
@@ -139,6 +163,9 @@
     </property>
     <property name="contextMenuPolicy">
      <enum>Qt::NoContextMenu</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 10px; border: 5px; </string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_3">
@@ -166,6 +193,9 @@
     <property name="contextMenuPolicy">
      <enum>Qt::NoContextMenu</enum>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 10px; border: 5px; </string>
+    </property>
    </widget>
    <widget class="QLabel" name="label_1">
     <property name="geometry">
@@ -175,6 +205,9 @@
       <width>120</width>
       <height>50</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//abris.png) 1px; border-radius: 10px;</string>
     </property>
     <property name="text">
      <string/>
@@ -189,6 +222,9 @@
       <height>50</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//buks.png) 1px; border-radius: 10px;</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -201,6 +237,9 @@
       <width>120</width>
       <height>50</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//tele.png) 1px; border-radius: 10px;</string>
     </property>
     <property name="text">
      <string/>
