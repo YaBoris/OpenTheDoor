@@ -1,15 +1,12 @@
 /* Simple Style */
 QPushButton {
-    border-image: url(:/style/simple_button.bmp) 10px;
-    border-width: 10px;
+    border-image: url(d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//simple.bmp) 3px; border-radius: 11px; color: white;
 }
 
 QPushButton:hover {
-    border-image: url(:/style/hover_button.bmp) 10px;
-    border-width: 10px;
+    border-image: url(d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//hover.bmp) 3px; border-radius: 11px; color: white;
 }
 
 QPushButton:pressed {
-    border-image: url(:/style/pressed_button.bmp) 10px;
-    border-width: 10px;
+	border-image: url(d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//pressed.bmp) 3px; border-radius: 11px; color: white;
 }

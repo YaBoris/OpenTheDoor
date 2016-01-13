@@ -58,11 +58,19 @@ MainWindow::MainWindow(QWidget *parent) :
 	//координаты без учета иконок
 	//int x = (widthFirstScreen-580)/2;
 
+
+	int widthIcon = 120;
+	int widthButton = 120;
+	int widthField = widthFirstScreen/3;
+	int widthSpace = 30;
+	qDebug() << "widthField" << widthField;
 	//с учетом иконок
-	int x = (widthFirstScreen-580)/2;;
-	int xIcon = (widthFirstScreen-730)/2;
-	int xField=x+80;
-	int xButton=x+545;
+	int xIcon = (widthFirstScreen-(widthIcon+widthButton+widthSpace*2+widthField))/2;
+	qDebug() << "xIcon" << xIcon;
+	int xField = xIcon + widthIcon + widthSpace + 13;
+	qDebug() << "xField = xIcon + widthIcon + widthSpace = " << xField;
+	int xButton = xIcon + widthIcon + widthField + widthSpace*2;
+	qDebug() << "xButton" << xButton;
 
 	QPalette palMainWindow;
 	QPixmap pix("d://__DOCS_PROJECTS//Qt//OpenTheDoor//555.png");
@@ -71,13 +79,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	this->setPalette(palMainWindow);
 	this->setAutoFillBackground(true);
 
-//	QFile buttonStyleFile("d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//simple.qss");
-//	buttonStyleFile.open(QFile::ReadOnly);
-//	QString strCSS = QLatin1String(buttonStyleFile.readAll());
-//	this->setStyleSheet(strCSS);
-
 	//задаем размещение иконок, полей ввода и кнопок
-	ui->lineEdit_1->size().setWidth(x);
+	ui->lineEdit_1->size().setWidth(widthField);
 	ui->lineEdit_1->size().setHeight(y);
 	//ui->lineEdit_1->setStyleSheet("QLineEdit {  border-radius: 10px; } ");
 
@@ -91,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	y+=70;
 	ui->lineEdit_2->size().setHeight(y);
-	ui->lineEdit_2->setStyleSheet("QLineEdit {  border-radius: 10px; } ");
+	//ui->lineEdit_2->setStyleSheet("QLineEdit {  border-radius: 10px; } ");
 	ui->lineEdit_2->setPalette(le_gray_palette);
 	ui->pushButton_2->move(xButton, y);
 	ui->lineEdit_2->move(xField, y);
@@ -99,19 +102,24 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	y+=70;
 	ui->lineEdit_3->size().setHeight(y);
-	ui->lineEdit_3->setStyleSheet("QLineEdit {  border-radius: 10px; } ");
+	//ui->lineEdit_3->setStyleSheet("QLineEdit {  border-radius: 10px; } ");
 	ui->lineEdit_3->setPalette(le_gray_palette);
 
 	ui->pushButton_3->move(xButton, y);
 	ui->lineEdit_3->move(xField, y);
 	ui->label_3->move(xIcon, y);
 
-	x = (widthFirstScreen-600)/2;
+	//int x = (widthFirstScreen-600)/2;
 	y=60;
 
 	ui->lineEdit_1->setText(enterString);
 	ui->lineEdit_2->setText(enterString);
 	ui->lineEdit_3->setText(enterString);
+
+	QFile buttonStyleFile("d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//simple.qss");
+	buttonStyleFile.open(QFile::ReadOnly);
+	QString strCSS = QLatin1String(buttonStyleFile.readAll());
+	this->setStyleSheet(strCSS);
 
 	ui->lineEdit_1->installEventFilter(this);
 	ui->lineEdit_2->installEventFilter(this);
@@ -162,11 +170,13 @@ void MainWindow::on_pushButton_1_clicked()
 
 			ui->lineEdit_2->show();
 			ui->pushButton_2->show();
+			ui->label_2->show();
 			ui->lineEdit_2->setPalette(le_gray_palette);
 			ui->lineEdit_2->setText(enterString);
 
 			ui->lineEdit_3->show();
 			ui->pushButton_3->show();
+			ui->label_3->show();
 			ui->lineEdit_3->setPalette(le_gray_palette);
 			ui->lineEdit_3->setText(enterString);
 		}
@@ -174,7 +184,7 @@ void MainWindow::on_pushButton_1_clicked()
 		{
 			ui->lineEdit_1->hide();
 			ui->pushButton_1->hide();
-
+			ui->label_1->hide();
 			lbl->setText(congratulationsString);
 			lbl->show();
 			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
@@ -188,7 +198,8 @@ void MainWindow::on_pushButton_1_clicked()
 		lbl->show();
 		lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
 		timerMessage.startShow(1500);
-		ui->lineEdit_1->setText("");
+		ui->lineEdit_1->setText(enterString);
+		ui->lineEdit_1->setFocus();
 	}
 }
 
@@ -220,11 +231,13 @@ void MainWindow::on_pushButton_2_clicked()
 
 			ui->lineEdit_1->show();
 			ui->pushButton_1->show();
+			ui->label_1->show();
 			ui->lineEdit_1->setPalette(le_gray_palette);
 			ui->lineEdit_1->setText(enterString);
 
 			ui->lineEdit_3->show();
 			ui->pushButton_3->show();
+			ui->label_3->show();
 			ui->lineEdit_3->setPalette(le_gray_palette);
 			ui->lineEdit_3->setText(enterString);
 		}
@@ -232,7 +245,7 @@ void MainWindow::on_pushButton_2_clicked()
 		{
 			ui->lineEdit_2->hide();
 			ui->pushButton_2->hide();
-
+			ui->label_2->hide();
 			lbl->setText(congratulationsString);
 			lbl->show();
 			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
@@ -246,7 +259,8 @@ void MainWindow::on_pushButton_2_clicked()
 		lbl->show();
 		lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
 		timerMessage.startShow(1500);
-		ui->lineEdit_2->setText("");
+		ui->lineEdit_2->setText(enterString);
+		ui->lineEdit_2->setFocus();
 	}
 }
 
@@ -279,11 +293,13 @@ void MainWindow::on_pushButton_3_clicked()
 
 			ui->lineEdit_2->show();
 			ui->pushButton_2->show();
+			ui->label_2->show();
 			ui->lineEdit_2->setPalette(le_gray_palette);
 			ui->lineEdit_2->setText(enterString);
 
 			ui->lineEdit_1->show();
 			ui->pushButton_1->show();
+			ui->label_1->show();
 			ui->lineEdit_1->setPalette(le_gray_palette);
 			ui->lineEdit_1->setText(enterString);
 		}
@@ -291,7 +307,7 @@ void MainWindow::on_pushButton_3_clicked()
 		{
 			ui->lineEdit_3->hide();
 			ui->pushButton_3->hide();
-
+			ui->label_3->hide();
 			lbl->setText(congratulationsString);
 			lbl->show();
 			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
@@ -305,7 +321,8 @@ void MainWindow::on_pushButton_3_clicked()
 		lbl->show();
 		lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
 		timerMessage.startShow(1500);
-		ui->lineEdit_3->setText("");
+		ui->lineEdit_3->setText(enterString);
+		ui->lineEdit_3->setFocus();
 	}
 }
 
@@ -313,6 +330,17 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *ev)
 {
 	if (obj == ui->lineEdit_1 && ev->type() == QEvent::FocusIn)
 	{
+		if(ui->lineEdit_3->text() == "")
+		{
+			ui->lineEdit_3->setPalette(le_gray_palette);
+			ui->lineEdit_3->setText(enterString);
+		}
+		if(ui->lineEdit_2->text() == "")
+		{
+			ui->lineEdit_2->setPalette(le_gray_palette);
+			ui->lineEdit_2->setText(enterString);
+		}
+
 		if (ui->lineEdit_1->text() == enterString)
 		{
 			ui->lineEdit_1->setText("");
@@ -336,6 +364,17 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *ev)
 	}
 	else if (obj == ui->lineEdit_2 && ev->type() == QEvent::FocusIn)
 	{
+		if(ui->lineEdit_1->text() == "")
+		{
+			ui->lineEdit_1->setPalette(le_gray_palette);
+			ui->lineEdit_1->setText(enterString);
+		}
+		if(ui->lineEdit_3->text() == "")
+		{
+			ui->lineEdit_3->setPalette(le_gray_palette);
+			ui->lineEdit_3->setText(enterString);
+		}
+
 		if (ui->lineEdit_2->text() == enterString)
 		{
 			ui->lineEdit_2->setText("");
@@ -359,6 +398,16 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *ev)
 	}
 	else if(obj == ui->lineEdit_3 && ev->type() == QEvent::FocusIn)
 	{
+		if(ui->lineEdit_1->text() == "")
+		{
+			ui->lineEdit_1->setPalette(le_gray_palette);
+			ui->lineEdit_1->setText(enterString);
+		}
+		if(ui->lineEdit_2->text() == "")
+		{
+			ui->lineEdit_2->setPalette(le_gray_palette);
+			ui->lineEdit_2->setText(enterString);
+		}
 
 		if (ui->lineEdit_3->text() == enterString)
 		{

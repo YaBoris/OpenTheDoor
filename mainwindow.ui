@@ -44,7 +44,7 @@
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//simple.bmp) 3px; border-radius: 11px; color: white;</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>Принять</string>
@@ -71,7 +71,7 @@
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//simple.bmp) 3px; border-radius: 11px;  color: white;</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>Принять</string>
@@ -98,7 +98,7 @@
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//simple.bmp) 3px; border-radius: 11px;  color: white;</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>Принять</string>
