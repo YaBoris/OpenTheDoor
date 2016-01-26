@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>style/abris.png</file>
+        <file>style/buks.png</file>
+        <file>style/hover.bmp</file>
+        <file>style/pressed.bmp</file>
+        <file>style/simple.bmp</file>
+        <file>style/simple.qss</file>
+        <file>style/tele.png</file>
+        <file>555.png</file>
+    </qresource>
+</RCC>

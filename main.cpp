@@ -19,13 +19,7 @@ int main(int argc, char *argv[])
 
 	QObject::connect(&w, SIGNAL(exiting()), &a, SLOT(quit()));
 	morzeWind.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-	morzeWind.resize(morzeWind.GetSizeX(), morzeWind.GetSizeY());
-	morzeWind.MoveToConer();
-	QPalette palMorze = morzeWind.palette();
-	palMorze.setColor(QPalette::Base, palMorze.color(QPalette::Window));
-	morzeWind.setPalette(palMorze);
-	morzeWind.setPalette(QPalette(Qt::black));
-	morzeWind.show();
+	morzeWind.showFullScreen();
 
 	//w.showFullScreen();
 	w.show();

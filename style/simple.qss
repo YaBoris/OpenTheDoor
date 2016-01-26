@@ -1,12 +1,30 @@
 /* Simple Style */
 QPushButton {
-    border-image: url(d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//simple.bmp) 3px; border-radius: 11px; color: white;
+    border-image: url(d://Downloads//Qt//Projects//OpenTheDoor//style//simple.bmp) 3px; border-radius: 11px; color: white;
+	/*d://Downloads//Qt//Projects//OpenTheDoor//style//simple.bmp*/
 }
 
 QPushButton:hover {
-    border-image: url(d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//hover.bmp) 3px; border-radius: 11px; color: white;
+    border-image: url(d://Downloads//Qt//Projects//OpenTheDoor//style//hover.bmp) 3px; border-radius: 11px; color: white;
+	
 }
 
 QPushButton:pressed {
-	border-image: url(d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//pressed.bmp) 3px; border-radius: 11px; color: white;
+	border-image: url(d://Downloads//Qt//Projects//OpenTheDoor//style//pressed.bmp) 3px; border-radius: 11px; color: white;
+}
+
+QLineEdit{
+	border-radius: 10px;
+}
+
+QLabel::label_1{
+	border-image: url(d://Downloads//Qt//Projects//OpenTheDoor//style//abris.png) 1px; border-radius: 10px;
+}
+
+QLabel::label_2{
+	border-image: url(d://Downloads//Qt//Projects//OpenTheDoor//style//buks.png) 1px; border-radius: 10px;
+}
+
+QLabel::label_3{
+	border-image: url(d://Downloads//Qt//Projects//OpenTheDoor//style//tele.png) 1px; border-radius: 10px;
 }

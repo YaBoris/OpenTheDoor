@@ -20,7 +20,9 @@ Etalon::Etalon()
 	string5Etalon = "11111";
 
 	//QFile codesFile("d:\\Downloads\\Qt\\Projects\\OpenTheDoor\\data.txt");
-	QFile codesFile("d:\\__DOCS_PROJECTS\\Qt\\OpenTheDoor\\data.txt");
+	//QFile codesFile("d:\\__DOCS_PROJECTS\\Qt\\OpenTheDoor\\data.txt");
+	QFile codesFile("C:\\Users\\Public\\Downloads\\MP709\\data.txt");
+
 
 	for(int i = 0; i < 50; i++) ReadyCodeMorzeForBlink[i] = 3;
 

@@ -31,10 +31,10 @@ public:
 
 	explicit morzewindow(QWidget *parent = 0);
 	~morzewindow();
-	void MoveToConer();
-	int GetSizeX();
-	int GetSizeY();
-	void FullMorzeString();
+//	void MoveToConer();
+//	int GetSizeX();
+//	int GetSizeY();
+//	void FullMorzeString();
 
 
 

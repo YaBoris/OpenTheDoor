@@ -18,7 +18,8 @@ public slots:
 	void changeTxt()
 	{
 		QThread::msleep(32000);
-		QFile openDoorFile("d:\\__DOCS_PROJECTS\\Qt\\OpenTheDoor\\MP709\\MP709.local.set");
+		//QFile openDoorFile("d:\\__DOCS_PROJECTS\\Qt\\OpenTheDoor\\MP709\\MP709.local.set");
+		QFile openDoorFile("C://Users//Public//Downloads//MP709//MP709.local.set");
 		int ex = 0;
 		do
 		{

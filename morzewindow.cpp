@@ -23,21 +23,23 @@ morzewindow::morzewindow(QWidget *parent) :
 	widthFirstScreen = windowMorze->screenGeometry(0).width();
 	heightFirstScreen = windowMorze->screenGeometry(0).height();
 
+
 	if(windowMorze->numScreens()>1)
 	{
+
 		widthSecondScreen = windowMorze->screenGeometry(1).width();
 		heightSecondScreen = windowMorze->screenGeometry(1).height();
 		QRect screenres = QApplication::desktop()->screenGeometry(1);
-		windowMorze->setGeometry(screenres.x(), screenres.y(), widthSecondScreen, heightSecondScreen);
-	}
+		//windowMorze->setGeometry(screenres.x(), screenres.y(), widthSecondScreen, heightSecondScreen);
 
+		//windowMorze->resize(screenres.width(), screenres.height());
+		//windowMorze->showFullScreen();
+		move(screenres.x(), screenres.y());
+	}
 	MorzeBlinkTimer.moveToThread(MorzeBlinkThread);
 	QObject::connect(MorzeBlinkThread, SIGNAL(started()), &MorzeBlinkTimer, SLOT(startBlink()));
 	QObject::connect(&MorzeBlinkTimer, SIGNAL(latency(bool)), this, SLOT(Blink(bool)));
 	MorzeBlinkThread->start();
-
-	//windowMorze->move(QPoint(screenres.x(), screenres.y()));
-	//windowMorze->move(QPoint(0, 0));
 }
 
 //слот для смены цвета окна морзянки черный/белый
@@ -60,43 +62,43 @@ morzewindow::~morzewindow()
     delete ui;
 }
 
-void morzewindow::MoveToConer()
-{
-	if(windowMorze->numScreens()>1)
-	{
-		QRect rect = QApplication::desktop()->screenGeometry(1);
-		QPoint Coner = rect.center(); //координаты центра экрана
-		Coner.setX(-1920);
-		Coner.setY(0);
-		move(Coner);
-	}
-	else
-	{
-		QRect rect = QApplication::desktop()->screenGeometry(0);
-		QPoint Coner = rect.center(); //координаты центра экрана
-		Coner.setX(widthFirstScreen/3);
-		Coner.setY(heightFirstScreen/3);
-		move(Coner);
-	}
-}
+//void morzewindow::MoveToConer()
+//{
+//	if(windowMorze->numScreens()>1)
+//	{
+//		QRect rect = QApplication::desktop()->screenGeometry(1);
+//		QPoint Coner = rect.center(); //координаты центра экрана
+//		Coner.setX(1920);
+//		Coner.setY(0);
+//		move(Coner);
+//	}
+//	else
+//	{
+//		QRect rect = QApplication::desktop()->screenGeometry(0);
+//		QPoint Coner = rect.center(); //координаты центра экрана
+//		Coner.setX(widthFirstScreen/3);
+//		Coner.setY(heightFirstScreen/3);
+//		move(Coner);
+//	}
+//}
 
-int morzewindow::GetSizeX()
-{
-	if(windowMorze->numScreens()>1)
-	{
-		return widthSecondScreen;
-	}
-	return widthFirstScreen/3;
-}
+//int morzewindow::GetSizeX()
+//{
+//	if(windowMorze->numScreens()>1)
+//	{
+//		return widthSecondScreen;
+//	}
+//	return widthFirstScreen/3;
+//}
 
-int morzewindow::GetSizeY()
-{
-	if(windowMorze->numScreens()>1)
-	{
-		return heightSecondScreen;
-	}
-	return heightFirstScreen/3;
-}
+//int morzewindow::GetSizeY()
+//{
+//	if(windowMorze->numScreens()>1)
+//	{
+//		return heightSecondScreen;
+//	}
+//	return heightFirstScreen/3;
+//}
 
 
 

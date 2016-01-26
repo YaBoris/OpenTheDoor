@@ -1,1 +1,0 @@
-"c:\Program Files (x86)\K-Lite Codec Pack\MPC-HC64\mpc-hc64.exe" "d:\__DOCS_PROJECTS\Qt\OpenTheDoor\MP709\50sec11.avi" /play /close /fullscreen /monitor 1
