@@ -29,6 +29,3 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     morzewindow.ui
 windows:TARGET = ../OpenTheDoor
-
-#RESOURCES += \
-#    resource.qrc

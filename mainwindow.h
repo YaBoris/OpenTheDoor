@@ -52,6 +52,10 @@ public:
 	MyThread messageThread;
 	int widthFirstScreen;
 	int heightFirstScreen;
+	int widthSecondScreen;
+	int heightSecondScreen;
+	int CountScreens;
+
 	bool bBlink;
 	int NumberLine;
 	void timeEvent(QTimerEvent*);

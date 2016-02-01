@@ -17,10 +17,11 @@ Etalon::Etalon()
     string2Etalon = "";
     string3Etalon = "";
     string4Etalon = "";
-	string5Etalon = "11111";
+	string5Etalon = "11110";
 
 	//QFile codesFile("d:\\Downloads\\Qt\\Projects\\OpenTheDoor\\data.txt");
 	//QFile codesFile("d:\\__DOCS_PROJECTS\\Qt\\OpenTheDoor\\data.txt");
+
 	QFile codesFile("C:\\Users\\Public\\Downloads\\MP709\\data.txt");
 
 
@@ -32,7 +33,6 @@ Etalon::Etalon()
         {
             ex = 1;
             Sleep(100);
-			//qDebug() << "Ошибка открытия для записи";
         }
         else
         {
@@ -62,7 +62,6 @@ Etalon::Etalon()
                     break;
                     case 3:
                         ch = *it;
-						//qDebug() << "ch " << ch;
                         string4Etalon.push_back(ch);
                     break;
                 }
@@ -81,8 +80,6 @@ Etalon::Etalon()
 
 		for(int i = 0; i < 42; i++)
 		{
-			//qDebug() << "TableCode.GetMorzeCodeReady(i)" << TableCode.GetMorzeCodeReady(i);
-
 			if(TableCode.GetUtfCode(i) != charSearch.unicode())
 			{
 				continue;
@@ -92,23 +89,13 @@ Etalon::Etalon()
 				for(int j = 1; j < 7; j++)
 				{
 					ReadyCodeMorzeForBlink[indexArrayMorzeCode]=TableCode.GetMorzeCharacter(i, j);
-					//qDebug() << "ReadyCodeMorzeForBlink[" << indexArrayMorzeCode << "]" << ReadyCodeMorzeForBlink[indexArrayMorzeCode];
-
 					indexArrayMorzeCode++;
-
 					if(ReadyCodeMorzeForBlink[indexArrayMorzeCode-1] == 2)
-						break;
-
+					break;
 				}
 			}
 		}
 		ReadyCodeMorzeForBlink[indexArrayMorzeCode] = 3;
-		//qDebug() << "\n\n";
-		for(int k = 0; k <= indexArrayMorzeCode; k++)
-		{
-
-			//qDebug() << "ReadyCodeMorzeForBlink[ " << k << "]" << ReadyCodeMorzeForBlink[k];
-		}
 	}
 
 }

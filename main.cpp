@@ -20,9 +20,7 @@ int main(int argc, char *argv[])
 	QObject::connect(&w, SIGNAL(exiting()), &a, SLOT(quit()));
 	morzeWind.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 	morzeWind.showFullScreen();
-
-	//w.showFullScreen();
-	w.show();
+	w.showFullScreen();
 
     return a.exec();
 }

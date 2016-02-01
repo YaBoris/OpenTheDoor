@@ -21,10 +21,45 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	widthFirstScreen=0;
 	heightFirstScreen=0;
-	int CountScreens=0;
+	CountScreens=0;
+	widthSecondScreen = 0;
+	heightSecondScreen = 0;
 	NumberLine=1;
 	allLabelAnswered=0;
+
 	timerMessage.moveToThread(&messageThread);
+
+	CountScreens = qdw->numScreens();
+	widthFirstScreen=qdw->screenGeometry(0).width();
+	heightFirstScreen=qdw->screenGeometry(0).height();
+	int widthIcon = 120;
+	int widthButton = 120;
+	int widthField = 600;
+	int widthSpace = 30;
+	int xIcon=0;
+	int xField=0;
+	int xButton=0;
+	int y;
+
+	if(qdw->numScreens()>1)
+	{
+		widthSecondScreen = qdw->screenGeometry(1).width();
+		heightSecondScreen = qdw->screenGeometry(1).height();
+		QRect screenres = QApplication::desktop()->screenGeometry(1);
+		move(screenres.x(), screenres.y());
+		xIcon = (widthSecondScreen-(widthIcon+widthButton+widthSpace*2+widthField))/2;
+		xField = xIcon + widthIcon + widthSpace;
+		xButton = xField + widthField + widthSpace;
+		y = (heightSecondScreen-190)/2;
+	}
+	else
+	{
+		xIcon = (widthFirstScreen-(widthIcon+widthButton+widthSpace*2+widthField))/2;
+		xField = xIcon + widthIcon + widthSpace;
+		xButton = xField + widthField + widthSpace;
+		y = (heightFirstScreen-190)/2;
+	}
+
 
 	//процесс для запуска видеоролика
 	procVideo=new QProcess(this);
@@ -39,56 +74,35 @@ MainWindow::MainWindow(QWidget *parent) :
 	//и последующего изменения состояния текстового файла открытия замка
 	QObject::connect(timerChangeTxtOpenDoorThread, SIGNAL(started()), &timerChangeTxtOpenDoor, SLOT(changeTxt()));
 
-	//коннект для закрытия процесса задержки при отображении окна "ПРАВИЛЬНО/НЕПРАВИЛЬНО"
-	//отключен, потому что сигнал finished отсутствует
-	//QObject::connect(&timerMessage, SIGNAL(finished()), &messageThread, SLOT(quit()));
-	//коннект для завершения процесса запущенного строкой ранее
-	//отключен, потому что сигнал quitThread отсутствует
-	//QObject::connect(timerChangeTxtOpenDoorThread, SIGNAL(quitThread()), timerChangeTxtOpenDoorThread, SLOT(quit()));
-
-	//QObject::connect(&timerOpenDoor, SIGNAL(hiding()), SLOT(changeStateTxtFile()));
-
 	lbl = new QLabel();
 	QFont f("Helvetica", 80, QFont::Bold);
 	lbl->setFont(f);
 	lbl->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
 	CountScreens=qdw->numScreens();
-	widthFirstScreen=qdw->screenGeometry().width();
-	heightFirstScreen=qdw->screenGeometry().height();
 	this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-
-	int y = (heightFirstScreen-190)/2;
-	//координаты без учета иконок
-	//int x = (widthFirstScreen-580)/2;
-
-
-	int widthIcon = 120;
-	int widthButton = 120;
-	int widthField = 600; //widthFirstScreen/3;
-
-	int widthSpace = 30;
-
-	//с учетом иконок
-	int xIcon = (widthFirstScreen-(widthIcon+widthButton+widthSpace*2+widthField))/2;
-	int xField = xIcon + widthIcon + widthSpace;
-	int xButton = xField + widthField + widthSpace;
-
-
 	QPalette palMainWindow;
+
 	//QPixmap pix("d://__DOCS_PROJECTS//Qt//OpenTheDoor//555.png");
 	QPixmap pix("C://Users//Public//Downloads//MP709//style//555.png");
 	//QPixmap pix("d://Downloads//Qt//Projects//OpenTheDoor//style//555.png");
-	//QPixmap pix("./555.png");
+
 	palMainWindow.setBrush(this->backgroundRole(), QBrush(pix));
-	this->resize(widthFirstScreen, heightFirstScreen);
 	this->setPalette(palMainWindow);
 	this->setAutoFillBackground(true);
+
+	if(qdw->numScreens()>1)
+	{
+		this->resize(widthSecondScreen, heightSecondScreen);
+	}
+	else
+	{
+		this->resize(widthFirstScreen, heightFirstScreen);
+	}
 
 	//задаем размещение иконок, полей ввода и кнопок
 	ui->lineEdit_1->size().setWidth(widthField);
 	ui->lineEdit_1->size().setHeight(y);
-	//ui->lineEdit_1->setStyleSheet("QLineEdit {  border-radius: 10px; } ");
 
 	le_gray_palette.setColor(QPalette::Text, Qt::gray);
 	le_black_palette.setColor(QPalette::Text, Qt::black);
@@ -113,7 +127,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->lineEdit_3->move(xField, y);
 	ui->label_3->move(xIcon, y);
 
-	//int x = (widthFirstScreen-600)/2;
 	y=60;
 
 	ui->lineEdit_1->setText(enterString);
@@ -162,12 +175,17 @@ void MainWindow::on_pushButton_1_clicked()
 		allLabelAnswered+=1;
 		if(allLabelAnswered == 7)
 		{
-			lbl->setText(congratulationsString);
 			lbl->show();
-			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
-			timerMessage.startShow(1500);
-
-			//если отгаданы все коды, то открываеми перезаписываем файл состояния реле на "ВКЛ"
+			lbl->setText(congratulationsString);
+			if(CountScreens<2)
+			{
+				lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+			}
+			else
+			{
+				lbl->move(0 - lbl->width() - (widthSecondScreen - lbl->width())/2,(heightSecondScreen - lbl->height())/2);
+			}
+			//если отгаданы все коды, то открываем замок
 			timerChangeTxtOpenDoorThread->start();
 			procVideo->start(pathToVideoBat);
 
@@ -194,7 +212,15 @@ void MainWindow::on_pushButton_1_clicked()
 			ui->label_1->hide();
 			lbl->setText(congratulationsString);
 			lbl->show();
-			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+			qDebug() << lbl->width();
+			if(CountScreens<2)
+			{
+				lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+			}
+			else
+			{
+				lbl->move(0 - lbl->width() - (widthSecondScreen - lbl->width())/2,(heightSecondScreen - lbl->height())/2);
+			}
 			timerMessage.startShow(1500);
 		}
 	}
@@ -203,7 +229,14 @@ void MainWindow::on_pushButton_1_clicked()
 		//если неправильное слово
 		lbl->setText(errorString);
 		lbl->show();
-		lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+		if(CountScreens<2)
+		{
+			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+		}
+		else
+		{
+			lbl->move(0 - lbl->width() - (widthSecondScreen - lbl->width())/2,(heightSecondScreen - lbl->height())/2);
+		}
 		timerMessage.startShow(1500);
 		ui->lineEdit_1->setText(enterString);
 		ui->lineEdit_1->setFocus();
@@ -225,7 +258,14 @@ void MainWindow::on_pushButton_2_clicked()
 		{
 			lbl->setText(congratulationsString);
 			lbl->show();
-			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+			if(CountScreens<2)
+			{
+				lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+			}
+			else
+			{
+				lbl->move(0 - lbl->width() - (widthSecondScreen - lbl->width())/2,(heightSecondScreen - lbl->height())/2);
+			}
 			timerMessage.startShow(1500);
 
 			//если отгаданы все коды, то открываеми перезаписываем файл состояния реле на "ВКЛ"
@@ -255,7 +295,14 @@ void MainWindow::on_pushButton_2_clicked()
 			ui->label_2->hide();
 			lbl->setText(congratulationsString);
 			lbl->show();
-			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+			if(CountScreens<2)
+			{
+				lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+			}
+			else
+			{
+				lbl->move(0 - lbl->width() - (widthSecondScreen - lbl->width())/2,(heightSecondScreen - lbl->height())/2);
+			}
 			timerMessage.startShow(1500);
 		}
 	}
@@ -264,7 +311,14 @@ void MainWindow::on_pushButton_2_clicked()
 		//если неправильное слово
 		lbl->setText(errorString);
 		lbl->show();
-		lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+		if(CountScreens<2)
+		{
+			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+		}
+		else
+		{
+			lbl->move(0 - lbl->width() - (widthSecondScreen - lbl->width())/2,(heightSecondScreen - lbl->height())/2);
+		}
 		timerMessage.startShow(1500);
 		ui->lineEdit_2->setText(enterString);
 		ui->lineEdit_2->setFocus();
@@ -286,7 +340,14 @@ void MainWindow::on_pushButton_3_clicked()
 		{
 			lbl->setText(congratulationsString);
 			lbl->show();
-			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+			if(CountScreens<2)
+			{
+				lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+			}
+			else
+			{
+				lbl->move(0 - lbl->width() - (widthSecondScreen - lbl->width())/2,(heightSecondScreen - lbl->height())/2);
+			}
 			timerMessage.startShow(1500);
 
 
@@ -317,7 +378,14 @@ void MainWindow::on_pushButton_3_clicked()
 			ui->label_3->hide();
 			lbl->setText(congratulationsString);
 			lbl->show();
-			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+			if(CountScreens<2)
+			{
+				lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+			}
+			else
+			{
+				lbl->move(0 - lbl->width() - (widthSecondScreen - lbl->width())/2,(heightSecondScreen - lbl->height())/2);
+			}
 			timerMessage.startShow(1500);
 		}
 	}
@@ -326,7 +394,14 @@ void MainWindow::on_pushButton_3_clicked()
 		//если неправильное слово
 		lbl->setText(errorString);
 		lbl->show();
-		lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+		if(CountScreens<2)
+		{
+			lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);
+		}
+		else
+		{
+			lbl->move(0 - lbl->width() - (widthSecondScreen - lbl->width())/2,(heightSecondScreen - lbl->height())/2);
+		}
 		timerMessage.startShow(1500);
 		ui->lineEdit_3->setText(enterString);
 		ui->lineEdit_3->setFocus();
@@ -443,5 +518,4 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *ev)
 	}
 	return MainWindow::eventFilter(obj, ev);
 }
-
 

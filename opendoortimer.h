@@ -18,15 +18,16 @@ public slots:
 	void changeTxt()
 	{
 		QThread::msleep(32000);
-		//QFile openDoorFile("d:\\__DOCS_PROJECTS\\Qt\\OpenTheDoor\\MP709\\MP709.local.set");
+		//QFile openDoorFile("d://__DOCS_PROJECTS//Qt//OpenTheDoor//MP709//MP709.local.set");
 		QFile openDoorFile("C://Users//Public//Downloads//MP709//MP709.local.set");
+		//QFile openDoorFile("d://Downloads//Qt//Projects//OpenTheDoor//MP709//MP709.local.set");
 		int ex = 0;
 		do
 		{
 			if (!openDoorFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
 			{
 				ex = 1;
-				Sleep(50);
+				QThread::msleep(50);
 				//qDebug() << "Ошибка открытия для записи";
 			}
 			else
@@ -34,39 +35,45 @@ public slots:
 				ex = 0;
 				openDoorFile.write("SVET=ON");
 				openDoorFile.close();
-				QThread::msleep(500);
+				QThread::msleep(1300);
 			}
+		}while(ex);
+		do
+		{
 			if (!openDoorFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
 			{
 				ex = 1;
-				Sleep(50);
-				//qDebug() << "Ошибка открытия для записи";
+				QThread::msleep(50);
 			}
 			else
 			{
 				ex = 0;
 				openDoorFile.write("SVET=OFF");
 				openDoorFile.close();
-				QThread::msleep(500);
+				QThread::msleep(300);
 			}
+		}while(ex);
+		do
+		{
 			if (!openDoorFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
 			{
 				ex = 1;
-				Sleep(50);
-				//qDebug() << "Ошибка открытия для записи";
+				QThread::msleep(50);
 			}
 			else
 			{
 				ex = 0;
 				openDoorFile.write("SVET=ON");
 				openDoorFile.close();
-				QThread::msleep(500);
+				QThread::msleep(1300);
 			}
+		}while(ex);
+		do
+		{
 			if (!openDoorFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
 			{
 				ex = 1;
-				Sleep(50);
-				//qDebug() << "Ошибка открытия для записи";
+				QThread::msleep(60);
 			}
 			else
 			{
