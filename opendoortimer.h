@@ -10,6 +10,8 @@ Q_OBJECT
 
 signals:
 	void quitThread();
+	void hideMorzeWindow();
+	void showMorzeWindow();
 
 public:
 	opendoortimer(QObject* pobj = 0) : QObject(pobj){}
@@ -17,6 +19,7 @@ public:
 public slots:
 	void changeTxt()
 	{
+		emit hideMorzeWindow();
 		QThread::msleep(32000);
 		//QFile openDoorFile("d://__DOCS_PROJECTS//Qt//OpenTheDoor//MP709//MP709.local.set");
 		QFile openDoorFile("C://Users//Public//Downloads//MP709//MP709.local.set");
@@ -33,7 +36,7 @@ public slots:
 			else
 			{
 				ex = 0;
-				openDoorFile.write("SVET=ON");
+				openDoorFile.write("DOOR=ON");
 				openDoorFile.close();
 				QThread::msleep(1300);
 			}
@@ -48,7 +51,7 @@ public slots:
 			else
 			{
 				ex = 0;
-				openDoorFile.write("SVET=OFF");
+				openDoorFile.write("DOOR=OFF");
 				openDoorFile.close();
 				QThread::msleep(300);
 			}
@@ -63,7 +66,7 @@ public slots:
 			else
 			{
 				ex = 0;
-				openDoorFile.write("SVET=ON");
+				openDoorFile.write("DOOR=ON");
 				openDoorFile.close();
 				QThread::msleep(1300);
 			}
@@ -78,10 +81,12 @@ public slots:
 			else
 			{
 				ex = 0;
-				openDoorFile.write("SVET=OFF");
+				openDoorFile.write("DOOR=OFF");
 				openDoorFile.close();
 			}
 		}while(ex);
+		QThread::msleep(8000);
+		emit showMorzeWindow();
 		emit quitThread();
 	}
 };

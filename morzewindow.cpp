@@ -43,7 +43,14 @@ void morzewindow::Blink(bool BlackWhite)
 		this->show();
 	}
 }
-
+void morzewindow::HideMorze()
+{
+	this->showMinimized();
+}
+void morzewindow::ShowMorze()
+{
+	this->showFullScreen();
+}
 morzewindow::~morzewindow()
 {
     delete ui;

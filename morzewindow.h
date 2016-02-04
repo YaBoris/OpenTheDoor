@@ -31,20 +31,13 @@ public:
 
 	explicit morzewindow(QWidget *parent = 0);
 	~morzewindow();
-//	void MoveToConer();
-//	int GetSizeX();
-//	int GetSizeY();
-//	void FullMorzeString();
-
-
-
 private:
     Ui::morzewindow *ui;
 
 public slots:
 	void Blink(bool BlackWhite);
-
-
+	void HideMorze();
+	void ShowMorze();
 };
 
 

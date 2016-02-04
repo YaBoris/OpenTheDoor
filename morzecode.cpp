@@ -301,7 +301,6 @@ morzeCode::morzeCode()
 	morzeCodeLine[5]=0;
 	morzeCodeLine[6]=2;
 	morzeCodeArr.push_back(morzeCodeLine);
-	//qDebug() << "size  alphabet" << morzeCodeArr.size();
 
 	//ю
 	morzeCodeLine[0]=1102;//1102,0,0,1,1,2,2
@@ -414,25 +413,10 @@ morzeCode::morzeCode()
 	morzeCodeLine[6]=2;
 	morzeCodeArr.push_back(morzeCodeLine);
 
-//qDebug() << "morzeCodeArr.size()" << morzeCodeArr.size();
-//qDebug() << "ArrElement" << morzeCodeArr[5][4];
-//qDebug() << "43546456463" << morzeCodeArr[0][0];
 }
 
 int morzeCode::GetMorzeCharacter(int indexUtfCharacter, int MorzeCharacterPosition)
 {
-//	int size = morzeCodeArr.size();
-//	for(int i = 0; i < size; i++)
-//	{
-//		if(morzeCodeArr[i][0] != indexUtfCharacter)
-//		{
-//			continue;
-//		}
-//		else
-//		{
-//			return morzeCodeArr[i][j];
-//		}
-//	}
 	return morzeCodeArr[indexUtfCharacter][MorzeCharacterPosition];
 }
 

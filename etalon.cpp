@@ -24,7 +24,6 @@ Etalon::Etalon()
 
 	QFile codesFile("C:\\Users\\Public\\Downloads\\MP709\\data.txt");
 
-
 	for(int i = 0; i < 50; i++) ReadyCodeMorzeForBlink[i] = 3;
 
     do

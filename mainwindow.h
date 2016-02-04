@@ -65,6 +65,8 @@ public:
     ~MainWindow();
 
 signals:
+	void SignalHideMorzeWindow();
+	void SignalShowMorzeWindow();
 	void exiting();
 
 private slots:
@@ -74,9 +76,14 @@ private slots:
 
     void on_pushButton_3_clicked();
 
-	//void startVideo();
-
-	//void changeStateTxtFile();
+	void hideMWindow()
+	{
+		emit SignalHideMorzeWindow();
+	}
+	void showMWindow()
+	{
+		emit SignalShowMorzeWindow();
+	}
 
 private:
 	Ui::MainWindow *ui;
@@ -86,8 +93,6 @@ public slots:
 	{
 		lbl->hide();
 	}
-
-
 };
 
 #endif // MAINWINDOW_H

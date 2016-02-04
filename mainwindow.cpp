@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	errorString = "<FONT COLOR = RED><CENTER>НЕПРАВИЛЬНО!</CENTER><FONT>";
 	enterString = "Введите код";
 	extraQuitString = "11110";
-	//pathToVideoBat = "explorer d://Downloads//Qt//Projects//OpenTheDoor//MP709//startvideo.bat";
+	//pathToVideoBat = "explorer d:\\Downloads\\Qt\\Projects\\OpenTheDoor\\MP709\\startvideo.bat";
 	//pathToVideoBat = "explorer d:\\__DOCS_PROJECTS\\Qt\\OpenTheDoor\\MP709\\startvideo.bat";
 
 	pathToVideoBat = "explorer C:\\Users\\Public\\Downloads\\MP709\\startvideo.bat";
@@ -60,7 +60,6 @@ MainWindow::MainWindow(QWidget *parent) :
 		y = (heightFirstScreen-190)/2;
 	}
 
-
 	//процесс для запуска видеоролика
 	procVideo=new QProcess(this);
 
@@ -69,6 +68,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	//коннект для скрытия окна "ПРАВИЛЬНО/НЕПРАВИЛЬНО"
 	QObject::connect(&timerMessage, SIGNAL(hiding()), SLOT(HideWindow()));
+
+	//сокрытие окна морзянки на время показа видео, чтобы не перекрывало
+	QObject::connect(&timerChangeTxtOpenDoor, SIGNAL(hideMorzeWindow()), SLOT(hideMWindow()));
+	QObject::connect(&timerChangeTxtOpenDoor, SIGNAL(showMorzeWindow()), SLOT(showMWindow()));
 
 	//коннект для запуска функции задержки при просмотре финального видеоролика
 	//и последующего изменения состояния текстового файла открытия замка
@@ -212,7 +215,6 @@ void MainWindow::on_pushButton_1_clicked()
 			ui->label_1->hide();
 			lbl->setText(congratulationsString);
 			lbl->show();
-			qDebug() << lbl->width();
 			if(CountScreens<2)
 			{
 				lbl->move((widthFirstScreen-lbl->width())/2,(heightFirstScreen-lbl->height())/2);

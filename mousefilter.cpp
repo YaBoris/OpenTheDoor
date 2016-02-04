@@ -1,7 +1,7 @@
 #include <QtWidgets>
 #include "mousefilter.h"
 
-MouseFilter::MouseFilter(QObject* pobj/*=0*/) : QObject(pobj)
+MouseFilter::MouseFilter(QObject* pobj) : QObject(pobj)
 {	
 }
 

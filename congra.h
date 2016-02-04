@@ -10,7 +10,6 @@ class Congra : public QObject {
 Q_OBJECT
 
 signals:
-	//void finished();
 	void hiding();
 
 public:
@@ -21,7 +20,6 @@ public:
 	}
 	void startShow(int seconds)
 	{
-		//qDebug() << "show timer";
 		m_timer.start(seconds);
 	}
 	public slots:

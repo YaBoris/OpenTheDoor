@@ -31,42 +31,33 @@ public slots:
 		int* morze = ReadyMorze.GetReadyCodeMorzeForBlink();
 		for(int i = 0; i < 50; i++)
 		{
-			//qDebug() << "index i: " << i;
 			switch(morze[i])
 			{
 			case 0:
 				emit latency(true);
-				//qDebug() << "iDot";
 				QThread::msleep(iDot);
 				emit latency(false);
 				QThread::msleep(iPauseSymbol);
-				//qDebug() << "iPauseSymbol";
 				break;
 			case 1:
 				emit latency(true);
-				//qDebug() << "iDash";
 				QThread::msleep(iDash);
 				emit latency(false);
 				QThread::msleep(iPauseSymbol);
-				//qDebug() << "iPauseSymbol";
 				break;
 			case 2:
 				emit latency(false);
 				QThread::msleep(iPauseLetter);
-				//qDebug() << "iPauseLetter";
 				break;
 			case 3:
 				emit latency(false);
 				QThread::msleep(iPauseWord);
-				//qDebug() << "iPauseWord";
 				i = -1;
 				break;
 			}
 		}
 	}
 };
-
-
 // ======================================================================
 class BlinkThread : public QThread {
 Q_OBJECT
@@ -78,8 +69,5 @@ public:
 		exec();
 	}
 };
-
-
-
 #endif // BLINK
 
