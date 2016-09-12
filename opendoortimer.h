@@ -22,7 +22,9 @@ public slots:
 		emit hideMorzeWindow();
 		QThread::msleep(32000);
 		//QFile openDoorFile("d://__DOCS_PROJECTS//Qt//OpenTheDoor//MP709//MP709.local.set");
+
 		QFile openDoorFile("C://Users//Public//Downloads//MP709//MP709.local.set");
+
 		//QFile openDoorFile("d://Downloads//Qt//Projects//OpenTheDoor//MP709//MP709.local.set");
 		int ex = 0;
 		do
@@ -31,7 +33,6 @@ public slots:
 			{
 				ex = 1;
 				QThread::msleep(50);
-				//qDebug() << "Ошибка открытия для записи";
 			}
 			else
 			{
@@ -88,6 +89,7 @@ public slots:
 		QThread::msleep(8000);
 		emit showMorzeWindow();
 		emit quitThread();
+		QThread::msleep(2000);
 	}
 };
 

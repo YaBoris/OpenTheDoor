@@ -77,6 +77,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	//и последующего изменения состояния текстового файла открытия замка
 	QObject::connect(timerChangeTxtOpenDoorThread, SIGNAL(started()), &timerChangeTxtOpenDoor, SLOT(changeTxt()));
 
+	//коннект закрывающий поток, меняющий состояние реле замка
+	QObject::connect(&timerChangeTxtOpenDoor, SIGNAL(quitThread()), timerChangeTxtOpenDoorThread, SLOT(quit()));
+
 	lbl = new QLabel();
 	QFont f("Helvetica", 80, QFont::Bold);
 	lbl->setFont(f);
@@ -86,7 +89,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 	QPalette palMainWindow;
 
-	//QPixmap pix("d://__DOCS_PROJECTS//Qt//OpenTheDoor//555.png");
+	//QPixmap pix("d://__DOCS_PROJECTS//Qt//OpenTheDoor//style//555.png");
 	QPixmap pix("C://Users//Public//Downloads//MP709//style//555.png");
 	//QPixmap pix("d://Downloads//Qt//Projects//OpenTheDoor//style//555.png");
 
@@ -352,9 +355,10 @@ void MainWindow::on_pushButton_3_clicked()
 			}
 			timerMessage.startShow(1500);
 
+			//если отгаданы все коды, то открываем и перезаписываем файл состояния реле на "ВКЛ"
 
-			//если отгаданы все коды, то открываеми перезаписываем файл состояния реле на "ВКЛ"
 			timerChangeTxtOpenDoorThread->start();
+
 			procVideo->start(pathToVideoBat);
 
 			allLabelAnswered = 0;
@@ -394,6 +398,7 @@ void MainWindow::on_pushButton_3_clicked()
 	else
 	{
 		//если неправильное слово
+		qDebug() << "test2";
 		lbl->setText(errorString);
 		lbl->show();
 		if(CountScreens<2)
